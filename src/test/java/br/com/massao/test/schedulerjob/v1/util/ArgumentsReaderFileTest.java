@@ -43,9 +43,8 @@ public class ArgumentsReaderFileTest {
 
 
     @Test
-    @Ignore // todo - refatorar... dificil de testar
     public void lerConteudoDoArquivo() {
-        Path dir = Paths.get("src", "resources", "massas");
+        Path dir = Paths.get("src", "main", "resources", "massas");
         String filename = dir + "\\01-massa_prova.json";
         String args[] = new String[] {dataInicio, dataFim, filename};
 
