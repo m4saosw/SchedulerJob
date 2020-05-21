@@ -35,6 +35,7 @@ public class Job implements Comparable<Job> {
     private float estimatedTime;
 
     private Job() {
+        // obrigatorio para o jackson
     }
 
     /**
