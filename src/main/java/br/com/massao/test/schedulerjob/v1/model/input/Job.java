@@ -95,8 +95,9 @@ public class Job implements Comparable<Job> {
     }
 
     @Override
-    public int compareTo(Job o) {
-        return this.id - o.id;
+    public int compareTo(Job other) {
+        //return this.id - other.id;  nao seguro https://javarevisited.blogspot.com/2011/11/how-to-override-compareto-method-in.html
+        return (this.id < other.id ) ? -1: (this.id > other.id) ? 1 : 0;
     }
 
  }
