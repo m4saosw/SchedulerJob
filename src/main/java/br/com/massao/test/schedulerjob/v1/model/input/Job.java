@@ -79,6 +79,7 @@ public class Job implements Comparable<Job> {
                 '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,16 +90,21 @@ public class Job implements Comparable<Job> {
         return id == that.id;
     }
 
+
     @Override
     public int hashCode() {
         return id;
     }
+
+
+    public boolean isEstimatedTimeLessThan(float maxHours) {
+        return (this.estimatedTime >= 0  &&  this.estimatedTime <= maxHours);
+    }
+
 
     @Override
     public int compareTo(Job other) {
         //return this.id - other.id;  nao seguro https://javarevisited.blogspot.com/2011/11/how-to-override-compareto-method-in.html
         return (this.id < other.id ) ? -1: (this.id > other.id) ? 1 : 0;
     }
-
- }
-
+}

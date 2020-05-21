@@ -1,6 +1,7 @@
 package br.com.massao.test.schedulerjob.v1.main;
 
 import br.com.massao.test.schedulerjob.v1.bean.ExecutionWindow;
+import br.com.massao.test.schedulerjob.v1.controller.InputJson;
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.model.input.Jobs;
 import br.com.massao.test.schedulerjob.v1.model.output.GroupsOut;
@@ -22,23 +23,13 @@ public class SchedulerJob {
     public static void main(String[] args) {
         final Instant start = Instant.now();
 
-        SchedulerJob schedulerJob = new SchedulerJob();
-
         try {
             // processa entrada
             LOGGER.info("Processando entrada...");
-            // todo - leitura de entrada
-            ArgumentsReaderFile input = new ArgumentsReaderFile(args);
 
-            LOGGER.info("entrada - janela exec = {} {}", input.getStartDate(), input.getEndDate());
-
-            Jobs jobsIn = JsonParserJacksonJobs.toClass(input.getJson());
-            LOGGER.info("entrada - jobs entrada  = {}", jobsIn.getJobs());
-
-            // tratamento de dados entrada
-            ExecutionWindow window = new ExecutionWindow(input.getStartDate(), input.getEndDate());
-            Jobs jobsInTratado = schedulerJob.filter(window, jobsIn);
-            LOGGER.info("entrada - jobs validos  = {}", jobsInTratado.getJobs());
+            InputJson input = new InputJson(new ArgumentsReaderFile(args));
+            input.process();
+            LOGGER.info("input - jobs validos  = {}", input.getValidJobs());
 
 
 
@@ -49,7 +40,7 @@ public class SchedulerJob {
 
             // todo - falta tratamento de negocio na saida
             JobsOut jobsOut = new JobsOut(new ArrayList<>());
-            for(Job job: jobsIn.getJobs()) {
+            for(Job job: input.getValidJobs().getJobs()) {
                 jobsOut.getJobs().add(new JobOut(job.getId()));
             }
             GroupsOut groupsOut = new GroupsOut(new ArrayList<>());
@@ -68,22 +59,5 @@ public class SchedulerJob {
         } catch (Exception e) {
             LOGGER.error("Ocorreu um erro interno desconhecido", e);
         }
-    }
-
-
-    private Jobs filter(ExecutionWindow window, Jobs jobs) {
-        // HashSet para eliminar duplicidades
-        Jobs newJobs = new Jobs(new HashSet<>());
-
-        // todo - substituir por java8
-        for (Job job : jobs.getJobs()) {
-            if (window.isBeforeWindow(job.getDeadline()))
-                LOGGER.warn("Job descartado - expirado em relação a janela de data: {}", job);
-            else if (job.getEstimatedTime() > 8)
-                LOGGER.warn("Job descartado - fora do limite de {} horas: {}", 8, job);
-            else
-                newJobs.getJobs().add(job);
-        }
-        return newJobs;
     }
 }
