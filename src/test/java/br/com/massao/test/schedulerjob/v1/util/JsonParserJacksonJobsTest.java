@@ -102,6 +102,38 @@ public class JsonParserJacksonJobsTest {
     }
 
 
+    @Test
+    public void jSonValido_Contendo3JobSendo1Duplicado() throws JsonProcessingException {
+        String jSon = "[\n" +
+                "  {\n" +
+                "    \"ID\": 2,\n" +
+                "    \"Descrição\": \"Importação de arquivos de fundos\",\n" +
+                "    \"Data Máxima de conclusão\": \"2019-11-10 12:00:00\",\n" +
+                "    \"Tempo estimado\": 2\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"ID\": 2,\n" +
+                "    \"Descrição\": \"Descartar esse pois id esta duplicado\",\n" +
+                "    \"Data Máxima de conclusão\": \"2019-11-11 12:00:00\",\n" +
+                "    \"Tempo estimado\": 4\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"ID\": 1,\n" +
+                "    \"Descrição\": \"Importação de dados de integração\",\n" +
+                "    \"Data Máxima de conclusão\": \"2019-11-11 08:00:00\",\n" +
+                "    \"Tempo estimado\": 6\n" +
+                "  }\n" +
+                "]";
+        Jobs jobs = JsonParserJacksonJobs.toClass(jSon);
+        List<Job> jobsList = jobs.getJobs().stream().collect(Collectors.toList());
+
+        assertEquals(2, jobsList.size());
+
+        assertEquals(1, jobsList.get(0).getId());
+        assertEquals(2, jobsList.get(1).getId());
+    }
+
+
     // este cenario nao ocorre na pratica
     @Test
     public void conversaoGrupoNuloParaStringEDevolverNulo() {
