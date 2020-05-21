@@ -11,7 +11,7 @@ public class Jobs {
     }
 
     public Jobs(Collection<Job> jobs) {
-        //this();
+        this();
         this.jobs = jobs;
     }
 

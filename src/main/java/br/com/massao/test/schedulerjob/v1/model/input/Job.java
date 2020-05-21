@@ -17,9 +17,9 @@ import java.time.format.DateTimeFormatter;
         "Data Máxima de conclusão",
         "Tempo estimado"
 })
-public class Job {
+public class Job implements Comparable<Job> {
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
     @JsonProperty("ID")
     private int id;
@@ -33,6 +33,9 @@ public class Job {
 
     @JsonProperty("Tempo estimado")
     private float estimatedTime;
+
+    private Job() {
+    }
 
     /**
      * @param estimatedTime
@@ -60,7 +63,7 @@ public class Job {
         return deadline;
     }
 
-    public double getEstimatedTime() {
+    public float getEstimatedTime() {
         return estimatedTime;
     }
 
@@ -74,7 +77,6 @@ public class Job {
                 ", estimatedTime=" + estimatedTime +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -91,5 +93,10 @@ public class Job {
         return id;
     }
 
-}
+    @Override
+    public int compareTo(Job o) {
+        return this.id - o.id;
+    }
+
+ }
 
