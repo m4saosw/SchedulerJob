@@ -30,4 +30,17 @@ public class JsonParserJacksonJobs {
 
         return new Jobs(jobs);
     }
+
+
+    public static String toJson(Object o) {
+        if (o == null) return null;
+
+        try {
+            return MAPPER.writeValueAsString(o);
+
+        } catch (JsonProcessingException e) {
+            LOGGER.error("Erro na conversao do objeto para string = {}", e.getMessage());
+            return null;
+        }
+    }
 }

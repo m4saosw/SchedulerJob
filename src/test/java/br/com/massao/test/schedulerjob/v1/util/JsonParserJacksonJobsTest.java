@@ -2,14 +2,18 @@ package br.com.massao.test.schedulerjob.v1.util;
 
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.model.input.Jobs;
+import br.com.massao.test.schedulerjob.v1.model.output.GroupsOut;
+import br.com.massao.test.schedulerjob.v1.model.output.JobOut;
+import br.com.massao.test.schedulerjob.v1.model.output.JobsOut;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class JsonParserJacksonJobsTest {
 
@@ -26,11 +30,13 @@ public class JsonParserJacksonJobsTest {
         JsonParserJacksonJobs.toClass(jSon);
     }
 
+
     @Test(expected = Exception.class)
     public void recusarJSonConteudoInvalido() throws JsonProcessingException {
         String jSon = "este e um conteudo invalido";
         JsonParserJacksonJobs.toClass(jSon);
     }
+
 
     @Test(expected = Exception.class)
     public void recusarJSonConteudoInvalido_TipoDadosInvalidoNoCampo() throws JsonProcessingException {
@@ -47,7 +53,7 @@ public class JsonParserJacksonJobsTest {
 
 
     @Test
-    public void aceitarJSonValido_ContendoUmJob() throws JsonProcessingException {
+    public void jSonValido_ContendoUmJob() throws JsonProcessingException {
         String jSon = "[\n" +
                 "  {\n" +
                 "    \"ID\": 1,\n" +
@@ -64,8 +70,9 @@ public class JsonParserJacksonJobsTest {
         assertEquals(2f, job.getEstimatedTime(), 0.0f);
     }
 
+
     @Test
-    public void aceitarJSonValido_Contendo3Job() throws JsonProcessingException {
+    public void jSonValido_Contendo3Job() throws JsonProcessingException {
         String jSon = "[\n" +
                 "  {\n" +
                 "    \"ID\": 1,\n" +
@@ -92,5 +99,67 @@ public class JsonParserJacksonJobsTest {
         assertEquals(1, jobsList.get(0).getId());
         assertEquals(2, jobsList.get(1).getId());
         assertEquals(3, jobsList.get(2).getId());
+    }
+
+
+    // este cenario nao ocorre na pratica
+    @Test
+    public void conversaoGrupoNuloParaStringEDevolverNulo() {
+        GroupsOut groups = null;
+        String jSon = JsonParserJacksonJobs.toJson(groups);
+        assertNull(jSon);
+    }
+
+
+    @Test
+    public void ConversaoGrupoVazioParaStringEDevolverJSonGrupoVazio() {
+        GroupsOut groups = new GroupsOut(new ArrayList<>());
+        String jSon = JsonParserJacksonJobs.toJson(groups);
+        assertEquals("[]", jSon);
+    }
+
+
+    @Test
+    public void conversao1JobParaJson() {
+        JobsOut jobs = new JobsOut(new ArrayList<>());
+        jobs.getJobs().add(new JobOut(1));
+
+        GroupsOut groups = new GroupsOut(new ArrayList<>());
+        groups.getGroups().add(jobs);
+
+        String jSon = JsonParserJacksonJobs.toJson(groups);
+        assertEquals("[[1]]", jSon);
+    }
+
+
+    @Test
+    public void conversao2JobsMesmoGrupoParaJson() {
+        JobsOut jobsGroup1 = new JobsOut(new ArrayList<>());
+        jobsGroup1.getJobs().add(new JobOut(1));
+        jobsGroup1.getJobs().add(new JobOut(3));
+
+        GroupsOut groups = new GroupsOut(new ArrayList<>());
+        groups.getGroups().add(jobsGroup1);
+
+        String jSon = JsonParserJacksonJobs.toJson(groups);
+        assertEquals("[[1,3]]", jSon);
+    }
+
+
+    @Test
+    public void conversao2JobsMesmoGrupoE1OutroGrupoParaJson() {
+        JobsOut jobsGroup1 = new JobsOut(new ArrayList<>());
+        jobsGroup1.getJobs().add(new JobOut(1));
+        jobsGroup1.getJobs().add(new JobOut(3));
+
+        JobsOut jobsGroup2 = new JobsOut(new ArrayList<>());
+        jobsGroup2.getJobs().add(new JobOut(2));
+
+        GroupsOut groups = new GroupsOut(new ArrayList<>());
+        groups.getGroups().add(jobsGroup1);
+        groups.getGroups().add(jobsGroup2);
+
+        String jSon = JsonParserJacksonJobs.toJson(groups);
+        assertEquals("[[1,3],[2]]", jSon);
     }
 }
