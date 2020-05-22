@@ -35,7 +35,7 @@ Em caso de erro nos parâmetros, uma mensagem de erro é informada no log e a ex
 
 **Exemplo de parâmetros:**
 ```
-"2019-11-10 09:00:00"  "2019-11-11 12:00:00"  "C:\Users\Massao\projects\Java\01-massa_prova.json"
+"2019-11-10 09:00:00"  "2019-11-11 12:00:00"  "C:\01-massa_prova.json"
 ```
 
 ## Arquivo de entrada
