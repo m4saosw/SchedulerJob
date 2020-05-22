@@ -1,6 +1,7 @@
 package br.com.massao.test.schedulerjob.v1.controller;
 
 import br.com.massao.test.schedulerjob.v1.interfaces.ArgumentsReader;
+import br.com.massao.test.schedulerjob.v1.interfaces.Input;
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.model.input.Jobs;
 import br.com.massao.test.schedulerjob.v1.util.JsonParserJacksonJobs;
@@ -11,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Collections;
 import java.util.HashSet;
 
-public class InputJson {
+public class InputJson implements Input {
     public static final float MAX_HOURS = 8;
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -30,6 +31,7 @@ public class InputJson {
     }
 
 
+    @Override
     public void process() {
         Jobs jobs = toClassInput(reader.getJson());
         this.validJobs = filter(jobs);
@@ -51,10 +53,10 @@ public class InputJson {
     }
 
 
+    @Override
     public Jobs getValidJobs() {
         return validJobs;
     }
-
 
 
     private Jobs filter(Jobs jobs) {
