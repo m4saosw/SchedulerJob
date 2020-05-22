@@ -84,12 +84,11 @@ public class Job implements Comparable<Job> {
         return "Job{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", deadline=" + deadline +
-                ", estimatedTime=" + FORMATTER.format(deadline) +
+                ", deadline=" + deadline.format(FORMATTER) +
+                ", estimatedTime=" + estimatedTime +
                 ", available=" + available +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {

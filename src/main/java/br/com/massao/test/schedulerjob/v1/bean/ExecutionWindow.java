@@ -40,8 +40,8 @@ public class ExecutionWindow {
     @Override
     public String toString() {
         return "ExecutionWindow{" +
-                "startDate=" + startDate +
-                ", endDate=" + endDate +
+                "startDate=" + startDate.format(FORMATTER) +
+                ", endDate=" + endDate.format(FORMATTER) +
                 '}';
     }
 
