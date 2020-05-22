@@ -1,8 +1,8 @@
 package br.com.massao.test.schedulerjob.v1.controller;
 
+import br.com.massao.test.schedulerjob.v1.interfaces.ArgumentsReader;
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.model.input.Jobs;
-import br.com.massao.test.schedulerjob.v1.util.ArgumentsReaderFile;
 import br.com.massao.test.schedulerjob.v1.util.JsonParserJacksonJobs;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,7 @@ public class InputJson {
     public static final float MAX_HOURS = 8;
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private ArgumentsReaderFile reader;
+    private ArgumentsReader reader;
     private Jobs validJobs;
 
 
@@ -24,7 +24,7 @@ public class InputJson {
     }
 
 
-    public InputJson(ArgumentsReaderFile reader) {
+    public InputJson(ArgumentsReader reader) {
         this();
         this.reader = reader;
     }
@@ -46,7 +46,7 @@ public class InputJson {
     }
 
 
-    public ArgumentsReaderFile getReader() {
+    public ArgumentsReader getReader() {
         return reader;
     }
 

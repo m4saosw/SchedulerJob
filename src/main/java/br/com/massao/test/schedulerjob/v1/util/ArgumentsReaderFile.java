@@ -1,6 +1,7 @@
 package br.com.massao.test.schedulerjob.v1.util;
 
 import br.com.massao.test.schedulerjob.v1.bean.ExecutionWindow;
+import br.com.massao.test.schedulerjob.v1.interfaces.ArgumentsReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class ArgumentsReaderFile {
+public class ArgumentsReaderFile implements ArgumentsReader {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private ExecutionWindow window;
@@ -31,10 +32,14 @@ public class ArgumentsReaderFile {
         json = readFromFile(args[2]);
     }
 
+
+    @Override
     public ExecutionWindow getWindow() {
         return window;
     }
 
+
+    @Override
     public String getJson() {
         return json;
     }

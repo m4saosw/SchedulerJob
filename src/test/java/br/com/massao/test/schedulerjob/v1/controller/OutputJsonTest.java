@@ -15,8 +15,6 @@ public class OutputJsonTest {
     String dataInicio = LocalDateTime.parse("2019-11-10 09:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
     String dataFim    = LocalDateTime.parse("2019-11-11 12:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
 
-    InputJson input = null;
-    OutputJson output = null;
 
     @Test(expected = IllegalArgumentException.class)
     public void rejeitarOutputDadoUmInputInvalido_JanelaInvalida() {
