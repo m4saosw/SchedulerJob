@@ -38,7 +38,7 @@ public class ExecutionWindowTest {
 
 
     @Test
-    public void aceitarDataAntesDaJanela() {
+    public void dataAntesDaJanela() {
         LocalDateTime dataAntes = LocalDateTime.parse("2000-04-15 00:00:00", ExecutionWindow.FORMATTER);
 
         assertTrue(window.isBeforeWindow(dataAntes));
@@ -46,7 +46,7 @@ public class ExecutionWindowTest {
 
 
     @Test
-    public void aceitarDataIgualInicioJanela() {
+    public void dataIgualInicioJanela() {
         LocalDateTime dataIgual = LocalDateTime.parse(dataInicio, ExecutionWindow.FORMATTER);
 
         assertTrue(window.isBeforeWindow(dataIgual));

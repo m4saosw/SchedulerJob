@@ -1,10 +1,7 @@
 package br.com.massao.test.schedulerjob.v1.model.input;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,8 +31,13 @@ public class Job implements Comparable<Job> {
     @JsonProperty("Tempo estimado")
     private float estimatedTime;
 
+    @JsonIgnore
+    private boolean available;
+
+
+    // construtor padrao obrigatorio para o jackson
     private Job() {
-        // obrigatorio para o jackson
+        this.available = true;
     }
 
     /**
@@ -68,6 +70,14 @@ public class Job implements Comparable<Job> {
         return estimatedTime;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
 
     @Override
     public String toString() {
@@ -75,7 +85,8 @@ public class Job implements Comparable<Job> {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", deadline=" + deadline +
-                ", estimatedTime=" + estimatedTime +
+                ", estimatedTime=" + FORMATTER.format(deadline) +
+                ", available=" + available +
                 '}';
     }
 
