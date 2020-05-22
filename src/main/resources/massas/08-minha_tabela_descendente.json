@@ -1,0 +1,64 @@
+[	{
+        "ID": 1,
+        "Descrição": "Descartar - job com tempo estimado mais de 8 h",
+        "Data Máxima de conclusão": "2019-11-10 23:00:00",
+        "Tempo estimado": 20
+    }, 
+	{
+        "ID": 2,
+        "Descrição": "Importação de arquivos de fundos",
+        "Data Máxima de conclusão": "2019-11-10 22:30:00",
+        "Tempo estimado": 0.6
+    }, 
+	{
+        "ID": 3,
+        "Descrição": "Importação de arquivos de fundos - valido",
+        "Data Máxima de conclusão": "2019-11-10 21:00:00",
+        "Tempo estimado": 0.5
+    }, {
+        "ID": 4,
+        "Descrição": "Importação de dados da Base Legada",
+        "Data Máxima de conclusão": "2019-11-10 19:00:00",
+        "Tempo estimado": 1
+    }, {
+        "ID": 5,
+        "Descrição": "Importação de dados de integração",
+        "Data Máxima de conclusão": "2019-11-10 18:00:00",
+        "Tempo estimado": 1
+    }, {
+        "ID": 6,
+        "Descrição": "Importação de dados de integração",
+        "Data Máxima de conclusão": "2019-11-10 17:00:00",
+        "Tempo estimado": 1
+    }, {
+        "ID": 7,
+        "Descrição": "Importação de dados de integração",
+        "Data Máxima de conclusão": "2019-11-10 16:00:00",
+        "Tempo estimado": 1
+    }, {
+        "ID": 8,
+        "Descrição": "Importação de dados de integração",
+        "Data Máxima de conclusão": "2019-11-10 15:00:00",
+        "Tempo estimado": 1
+    }, {
+        "ID": 9,
+        "Descrição": "Importação de dados de integração",
+        "Data Máxima de conclusão": "2019-11-10 14:00:00",
+        "Tempo estimado": 1
+    }, {
+        "ID": 10,
+        "Descrição": "Importação de dados de integração",
+        "Data Máxima de conclusão": "2019-11-10 13:00:00",
+        "Tempo estimado": 1
+    }, {
+        "ID": 11,
+        "Descrição": "Job ocupa todo o limite 8h - executar sozinho",
+        "Data Máxima de conclusão": "2019-11-10 12:00:00",
+        "Tempo estimado": 8
+    }, {
+        "ID": 3,
+        "Descrição": "Descartar este job id 3 duplicado",
+        "Data Máxima de conclusão": "2019-11-10 23:59:00",
+        "Tempo estimado": 1
+	}
+]
