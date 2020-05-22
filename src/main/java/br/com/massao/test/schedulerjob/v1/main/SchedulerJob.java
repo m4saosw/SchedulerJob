@@ -20,7 +20,7 @@ public class SchedulerJob {
 
             InputJson input = new InputJson(new ArgumentsReaderFile(args));
             input.process();
-            LOGGER.info("input - janela exec = {}", input.getWindow());
+            LOGGER.info("input - janela exec = {}", input.getReader().getWindow());
             LOGGER.info("input - jobsValidos = {}", input.getValidJobs());
 
             // processa saida

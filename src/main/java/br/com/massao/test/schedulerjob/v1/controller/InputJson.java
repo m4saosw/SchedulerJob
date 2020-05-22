@@ -1,6 +1,5 @@
 package br.com.massao.test.schedulerjob.v1.controller;
 
-import br.com.massao.test.schedulerjob.v1.bean.ExecutionWindow;
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.model.input.Jobs;
 import br.com.massao.test.schedulerjob.v1.util.ArgumentsReaderFile;
@@ -14,13 +13,9 @@ import java.util.HashSet;
 
 public class InputJson {
     public static final float MAX_HOURS = 8;
-
     private static final Logger LOGGER = LogManager.getLogger();
 
     private ArgumentsReaderFile reader;
-
-    private ExecutionWindow window;
-
     private Jobs validJobs;
 
 
@@ -28,10 +23,10 @@ public class InputJson {
         this.validJobs = new Jobs(Collections.emptyList());// evitar NullPointer
     }
 
+
     public InputJson(ArgumentsReaderFile reader) {
         this();
         this.reader = reader;
-        this.window = new ExecutionWindow(reader.getStartDate(), reader.getEndDate());
     }
 
 
@@ -39,6 +34,7 @@ public class InputJson {
         Jobs jobs = toClassInput(reader.getJson());
         this.validJobs = filter(jobs);
     }
+
 
     private Jobs toClassInput(String jSon) {
         try {
@@ -54,10 +50,6 @@ public class InputJson {
         return reader;
     }
 
-    public ExecutionWindow getWindow() {
-        return window;
-    }
-
 
     public Jobs getValidJobs() {
         return validJobs;
@@ -71,7 +63,7 @@ public class InputJson {
 
         // todo - substituir por java8
         for (Job job : jobs.getJobs()) {
-            if (this.window.isBeforeWindow(job.getDeadline()))
+            if (this.reader.getWindow().isBeforeWindow(job.getDeadline()))
                 LOGGER.warn("Job descartado - expirado em relação a janela de data: {}", job);
             else if (!job.isEstimatedTimeLessThan(MAX_HOURS))
                 LOGGER.warn("Job descartado - fora do limite de {} horas: {}", MAX_HOURS, job);
@@ -86,7 +78,6 @@ public class InputJson {
     public String toString() {
         return "InputJson{" +
                 "reader=" + reader +
-                ", window=" + window +
                 ", validJobs=" + validJobs +
                 '}';
     }
