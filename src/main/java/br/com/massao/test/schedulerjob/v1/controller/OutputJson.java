@@ -14,6 +14,11 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Processador de saida de dados
+ * Classifica os jobs em grupos conforme regras de negocio
+ * Envia para o log a saida do processamento da entrada no formato JSon
+ */
 public class OutputJson implements Output {
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -89,22 +94,42 @@ public class OutputJson implements Output {
     }
 
 
+    /**
+     * Adiciona o job ao grupo
+     * @param groupIndex
+     * @param job
+     * @param groups
+     */
     private void addJobToNewGroup(int groupIndex, Job job, List<JobsOut> groups) {
         job.setAvailable(false);
         groups.get(groupIndex).getJobs().add(new JobOut(job.getId()));
     }
 
 
+    /**
+     * Job esta dentro do numero maximo de horas da janela?
+     * @param sum
+     * @param job
+     * @return
+     */
     private boolean jobFitInMaxHours(float sum, Job job) {
         return job.getEstimatedTime() + sum <= InputJson.MAX_HOURS;
     }
 
 
+    /**
+     * Cria um novo grupo
+     * @param groups
+     */
     private void addNewGroup(List<JobsOut> groups) {
         groups.add(new JobsOut(new ArrayList<>()));
     }
 
 
+    /**
+     * Remove ultimo grupo vazio
+     * @param groups
+     */
     private void removeLastEmptyGroup(List<JobsOut> groups) {
         int last = groups.size() - 1;
         if (! groups.isEmpty() && groups.get(last).getJobs().isEmpty())
@@ -112,6 +137,10 @@ public class OutputJson implements Output {
     }
 
 
+    /**
+     * Ordena jobs por data maxima de conclusao
+     * @param jobs
+     */
     private void sortByDate(List<Job> jobs) {
         jobs.sort(new ComparatorDeadline());
     }

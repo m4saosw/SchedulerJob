@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
         "Data Máxima de conclusão",
         "Tempo estimado"
 })
+/**
+ * Job de entrada
+ */
 public class Job implements Comparable<Job> {
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);

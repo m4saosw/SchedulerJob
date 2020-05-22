@@ -3,6 +3,9 @@ package br.com.massao.test.schedulerjob.v1.model.input;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Clecao de Jobs de entrada
+ */
 public class Jobs {
     private Collection<Job> jobs;
 

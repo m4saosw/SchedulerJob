@@ -12,6 +12,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+/**
+ * Leitor de argumentos de entrada por linha de comando e arquivo em formato Json
+ */
 public class ArgumentsReaderFile implements ArgumentsReader {
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -20,7 +23,6 @@ public class ArgumentsReaderFile implements ArgumentsReader {
 
     public ArgumentsReaderFile(String[] args) {
         validations(args);
-
 
         // command line arguments
         Arrays.stream(args).forEach(arg -> LOGGER.debug("Argumento: {}", arg));
@@ -45,12 +47,21 @@ public class ArgumentsReaderFile implements ArgumentsReader {
     }
 
 
+    /**
+     * Validacoes dos argumentos de entrada
+     * @param args
+     */
     private void validations(String[] args) {
         if (args == null || args.length != 3)
             throw new IllegalArgumentException("Quantidade inválida de argumentos de entrada. Por favor informar: dataInicial  dataFinal  arquivoJson");
     }
 
 
+    /**
+     * Leitura do conteudo do arquivo
+     * @param fileName
+     * @return
+     */
     public String readFromFile(String fileName) {
         StringBuilder sb = new StringBuilder();
 

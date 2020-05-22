@@ -13,6 +13,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * Conversor de Jobs para string e vice versa usando a library Jackson
+ */
 public class JsonParserJacksonJobs {
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -21,6 +24,12 @@ public class JsonParserJacksonJobs {
     private JsonParserJacksonJobs() {
     }
 
+    /**
+     * Converte de json para classe
+     * @param str
+     * @return
+     * @throws JsonProcessingException
+     */
     public static Jobs toClass(String str) throws JsonProcessingException {
         // para funcionar as classes data java 8
         MAPPER.registerModule(new JavaTimeModule());
@@ -32,6 +41,11 @@ public class JsonParserJacksonJobs {
     }
 
 
+    /**
+     * Converte de classe para json
+     * @param o
+     * @return
+     */
     public static String toJson(Object o) {
         if (o == null) return null;
 

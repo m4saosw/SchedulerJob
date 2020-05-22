@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Collection;
 
+/**
+ * Jobs de saida
+ */
 public class JobsOut {
     @JsonValue
     private Collection<JobOut> jobs;
