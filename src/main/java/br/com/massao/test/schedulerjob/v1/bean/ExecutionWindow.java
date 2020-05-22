@@ -1,13 +1,9 @@
 package br.com.massao.test.schedulerjob.v1.bean;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ExecutionWindow {
-    private static final Logger LOGGER = LogManager.getLogger();
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 

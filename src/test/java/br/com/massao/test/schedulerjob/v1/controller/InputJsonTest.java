@@ -64,4 +64,30 @@ public class InputJsonTest {
         assertEquals(2, jobsList.get(1).getId());
         assertEquals(3, jobsList.get(2).getId());
     }
+
+
+    @Test
+    public void processarInputValidoTesteFiltros() {
+        Path dir = Paths.get("src", "main", "resources", "massas");
+        String filename = dir + "\\10-valido_expirado_acimahoras.json";
+        String args[] = new String[] {dataInicio, dataFim, filename};
+
+        InputJson input = new InputJson(new ArgumentsReaderFile(args));
+
+        input.process();
+
+        // deve retornar jobs carregados
+        assertNotNull(input.getValidJobs().getJobs());
+        assertFalse(input.getValidJobs().getJobs().isEmpty());
+
+        // devem ser os id dos jobs lidos
+        Collection<Job> jobs = input.getValidJobs().getJobs();
+        List<Job> jobsList = jobs.stream().collect(Collectors.toList());
+
+        assertEquals(3, jobsList.size());
+
+        assertEquals(1, jobsList.get(0).getId());
+        assertEquals(2, jobsList.get(1).getId());
+        assertEquals(4, jobsList.get(2).getId());
+    }
 }

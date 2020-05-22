@@ -9,8 +9,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class InputJson implements Input {
     public static final float MAX_HOURS = 8;
@@ -42,7 +44,6 @@ public class InputJson implements Input {
         try {
             return JsonParserJacksonJobs.toClass(jSon);
         } catch (JsonProcessingException e) {
-            //LOGGER.error("Erro na conversao dos jobs em formato json: {}", e.getMessage());
             throw new IllegalArgumentException("Erro na conversao dos jobs em formato json", e.getCause());
         }
     }
@@ -60,18 +61,23 @@ public class InputJson implements Input {
 
 
     private Jobs filter(Jobs jobs) {
+        Collection<Job> jobsFiltered = jobs.getJobs().stream()
+                .filter(job -> {
+                    if (this.reader.getWindow().isBeforeWindow(job.getDeadline())) {
+                        LOGGER.warn("Job descartado - expirado em relação a janela de data: {}", job);
+                        return false;
+                    } else if (!job.isEstimatedTimeLessThan(MAX_HOURS)) {
+                        LOGGER.warn("Job descartado - fora do limite de {} horas: {}", MAX_HOURS, job);
+                        return false;
+                    } else
+                        return true;
+                })
+                .collect(Collectors.toList());
+
         // HashSet para eliminar duplicidades
         Jobs newJobs = new Jobs(new HashSet<>());
+        newJobs.getJobs().addAll(jobsFiltered);
 
-        // todo - substituir por java8
-        for (Job job : jobs.getJobs()) {
-            if (this.reader.getWindow().isBeforeWindow(job.getDeadline()))
-                LOGGER.warn("Job descartado - expirado em relação a janela de data: {}", job);
-            else if (!job.isEstimatedTimeLessThan(MAX_HOURS))
-                LOGGER.warn("Job descartado - fora do limite de {} horas: {}", MAX_HOURS, job);
-            else
-                newJobs.getJobs().add(job);
-        }
         return newJobs;
     }
 
