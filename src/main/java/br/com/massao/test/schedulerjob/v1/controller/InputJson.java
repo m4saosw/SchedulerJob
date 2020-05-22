@@ -14,6 +14,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
+/**
+ * Processador de entrada de dados
+ * Faz a leitura dos argumentos via linha de comando e carrega o arquivo em formato JSon
+ */
 public class InputJson implements Input {
     public static final float MAX_HOURS = 8;
     private static final Logger LOGGER = LogManager.getLogger();
@@ -39,7 +43,11 @@ public class InputJson implements Input {
         this.validJobs = filter(jobs);
     }
 
-
+    /**
+     * Converte de string para objeto
+     * @param jSon
+     * @return
+     */
     private Jobs toClassInput(String jSon) {
         try {
             return JsonParserJacksonJobs.toClass(jSon);
@@ -59,7 +67,11 @@ public class InputJson implements Input {
         return validJobs;
     }
 
-
+    /**
+     * Filtra os jobs conforme regras de negocio
+     * @param jobs
+     * @return
+     */
     private Jobs filter(Jobs jobs) {
         Collection<Job> jobsFiltered = jobs.getJobs().stream()
                 .filter(job -> {

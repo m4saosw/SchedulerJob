@@ -6,19 +6,15 @@
 
     <groupId>br.com.massao.test</groupId>
     <artifactId>SchedulerJob</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <java.version>1.8</java.version>
-
         <jackson.version>2.11.0</jackson.version>
-        <moshi.version>1.9.2</moshi.version>
-
         <log4j.version>2.13.3</log4j.version>
-
         <junit.version>4.13</junit.version>
         <maven-test-plugin.version>2.22.0</maven-test-plugin.version>
     </properties>
@@ -36,12 +32,6 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.squareup.moshi</groupId>
-            <artifactId>moshi</artifactId>
-            <version>${moshi.version}</version>
         </dependency>
 
         <dependency>
@@ -63,7 +53,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 
     <build>
         <plugins>
@@ -100,19 +89,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
 
             <!-- tests to be executed during the maven build-->
             <plugin>

@@ -11,6 +11,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
 
+/**
+ * Classe principal executavel SchedulerJob
+ * Aciona os processadores de entrada e saida de dados
+ */
 public class SchedulerJob {
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -36,6 +40,9 @@ public class SchedulerJob {
 
             LOGGER.info("saida - resultados = {}", output.getGroupsOutString());
 
+            // gera resultados na saida padrao
+            System.out.println(output.getGroupsOutString());
+
         } catch (IllegalArgumentException e) {
             LOGGER.error("Ocorreu um erro de validacao de entrada de dados = {}", e.getMessage());
             System.exit(1);
@@ -44,6 +51,6 @@ public class SchedulerJob {
             System.exit(1);
         }
 
-        LOGGER.info("Tempo de execucao = {} ms", Instant.now().toEpochMilli() - start.toEpochMilli());
+        LOGGER.debug("Tempo de execucao = {} ms", Instant.now().toEpochMilli() - start.toEpochMilli());
     }
 }

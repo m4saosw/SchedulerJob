@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Collection;
 
+/**
+ * Grupos de saida
+ */
 public class GroupsOut {
     @JsonValue
     private Collection<JobsOut> groups;

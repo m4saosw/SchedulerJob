@@ -2,6 +2,9 @@ package br.com.massao.test.schedulerjob.v1.model.output;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * Job de saida
+ */
 public class JobOut {
     @JsonValue
     private int id;
