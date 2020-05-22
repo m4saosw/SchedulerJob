@@ -1,5 +1,6 @@
 package br.com.massao.test.schedulerjob.v1.util;
 
+import br.com.massao.test.schedulerjob.v1.bean.ExecutionWindow;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -7,14 +8,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class ArgumentsReaderFile {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private String startDate;
-    private String endDate;
-
+    private ExecutionWindow window;
     private String json;
 
     public ArgumentsReaderFile(String args[]) {
@@ -22,23 +22,17 @@ public class ArgumentsReaderFile {
 
 
         // command line arguments
-        for (String inputArg : args)
-            LOGGER.debug("Argumento: {}", inputArg);
+        Arrays.stream(args).forEach(arg -> LOGGER.debug("Argumento: {}", arg));
 
         String startDate = args[0];
         String endDate = args[1];
 
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.window = new ExecutionWindow(startDate, endDate);
         json = readFromFile(args[2]);
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
+    public ExecutionWindow getWindow() {
+        return window;
     }
 
     public String getJson() {
