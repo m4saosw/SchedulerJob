@@ -1,7 +1,7 @@
 package br.com.massao.test.schedulerjob.v1.main;
 
 import br.com.massao.test.schedulerjob.v1.controller.InputJson;
-import br.com.massao.test.schedulerjob.v1.controller.OutputJson;
+import br.com.massao.test.schedulerjob.v1.controller.OutputJsonStrategy1;
 import br.com.massao.test.schedulerjob.v1.interfaces.ArgumentsReader;
 import br.com.massao.test.schedulerjob.v1.interfaces.Input;
 import br.com.massao.test.schedulerjob.v1.interfaces.Output;
@@ -35,7 +35,7 @@ public class SchedulerJob {
             // processa saida
             LOGGER.info("Processando saida...");
 
-            Output output = new OutputJson(input);
+            Output output = new OutputJsonStrategy1(input);
             output.process();
 
             LOGGER.info("saida - resultados = {}", output.getGroupsOutString());

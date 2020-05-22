@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class OutputJsonTest {
+public class OutputJsonStrategy1Test {
     String dataInicio = LocalDateTime.parse("2019-11-10 09:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
     String dataFim    = LocalDateTime.parse("2019-11-11 12:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
 
@@ -26,7 +26,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
     }
 
@@ -41,7 +41,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
 
         // deve retornar grupo de jobs
@@ -60,7 +60,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
     }
 
@@ -75,7 +75,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
     }
 
@@ -90,7 +90,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
 
         // deve retornar grupo de jobs
@@ -109,7 +109,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
 
         // deve retornar grupo de jobs
@@ -128,7 +128,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
 
         // deve retornar grupo de jobs
@@ -147,7 +147,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
 
         // deve retornar grupo de jobs
@@ -165,7 +165,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
 
         // deve retornar grupo de jobs
@@ -184,7 +184,7 @@ public class OutputJsonTest {
 
         input.process();
 
-        OutputJson output = new OutputJson(input);
+        OutputJsonStrategy1 output = new OutputJsonStrategy1(input);
         output.process();
     }
 
