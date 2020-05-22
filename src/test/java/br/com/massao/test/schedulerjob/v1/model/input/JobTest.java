@@ -1,6 +1,5 @@
 package br.com.massao.test.schedulerjob.v1.model.input;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
