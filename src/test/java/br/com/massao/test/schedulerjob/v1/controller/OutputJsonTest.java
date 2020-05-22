@@ -158,7 +158,7 @@ public class OutputJsonTest {
     @Test
     public void processarOutputDadoUmInputValido_massa08_ordemDecrescente() {
         Path dir = Paths.get("src", "main", "resources", "massas");
-        String filename = dir + "\\" + "08-minha_tabela_descendente.json";
+        String filename = dir + "\\" + "08-minha_outra_tabela_descendente.json";
         String args[] = new String[] {dataInicio, dataFim, filename};
 
         InputJson input = new InputJson(new ArgumentsReaderFile(args));

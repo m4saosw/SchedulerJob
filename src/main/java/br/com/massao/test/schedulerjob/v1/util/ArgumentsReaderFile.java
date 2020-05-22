@@ -18,7 +18,7 @@ public class ArgumentsReaderFile implements ArgumentsReader {
     private ExecutionWindow window;
     private String json;
 
-    public ArgumentsReaderFile(String args[]) {
+    public ArgumentsReaderFile(String[] args) {
         validations(args);
 
 
@@ -45,7 +45,7 @@ public class ArgumentsReaderFile implements ArgumentsReader {
     }
 
 
-    private void validations(String args[]) {
+    private void validations(String[] args) {
         if (args == null || args.length != 3)
             throw new IllegalArgumentException("Quantidade inválida de argumentos de entrada. Por favor informar: dataInicial  dataFinal  arquivoJson");
     }
@@ -53,8 +53,9 @@ public class ArgumentsReaderFile implements ArgumentsReader {
 
     public String readFromFile(String fileName) {
         StringBuilder sb = new StringBuilder();
-        try {
-            Stream<String> stream = Files.lines(Paths.get(fileName), StandardCharsets.UTF_8);
+
+        // try-with-resources para ser auto-closeable  https://mkyong.com/java/java-8-should-we-close-the-stream-after-use/
+        try (Stream<String> stream = Files.lines(Paths.get(fileName), StandardCharsets.UTF_8)) {
             stream.forEach(s -> sb.append(s).append("\n"));
 
             String contentString = sb.toString();
