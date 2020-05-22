@@ -14,8 +14,8 @@ Tecnologias utilizadas:
 	Log4j2 2.13.3
 	Maven
 
-## Testes unitários
-Para testar as funcionalidades foram criados 40 testes unitários.
+## Testes automatizados
+Para testar as funcionalidades foram criados 42 testes unitários.
 
 ## Compilação
 ```

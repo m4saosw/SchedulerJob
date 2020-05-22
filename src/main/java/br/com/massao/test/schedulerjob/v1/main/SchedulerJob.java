@@ -22,26 +22,7 @@ public class SchedulerJob {
         final Instant start = Instant.now();
 
         try {
-            // processa entrada
-            LOGGER.info("Processando entrada...");
-
-            ArgumentsReader reader = new ArgumentsReaderFile(args);
-            Input input = new InputJson(reader);
-            input.process();
-
-            LOGGER.info("input - janela exec = {}", reader.getWindow());
-            LOGGER.info("input - jobsValidos = {}", input.getValidJobs());
-
-            // processa saida
-            LOGGER.info("Processando saida...");
-
-            Output output = new OutputJsonStrategy1(input);
-            output.process();
-
-            LOGGER.info("saida - resultados = {}", output.getGroupsOutString());
-
-            // gera resultados na saida padrao
-            System.out.println(output.getGroupsOutString());
+            processOutput(getInput(args));
 
         } catch (IllegalArgumentException e) {
             LOGGER.error("Ocorreu um erro de validacao de entrada de dados = {}", e.getMessage());
@@ -52,5 +33,42 @@ public class SchedulerJob {
         }
 
         LOGGER.debug("Tempo de execucao = {} ms", Instant.now().toEpochMilli() - start.toEpochMilli());
+    }
+
+
+    /**
+     * Cria um objeto de entrada dado os parametros informados pelo usuario
+     * @param args
+     * @return
+     */
+    private static Input getInput(String[] args) {
+        // processa entrada
+        LOGGER.info("Processando entrada...");
+
+        ArgumentsReader reader = new ArgumentsReaderFile(args);
+        Input input = new InputJson(reader);
+        input.process();
+
+        LOGGER.info("input - janela exec = {}", reader.getWindow());
+        LOGGER.info("input - jobsValidos = {}", input.getValidJobs());
+        return input;
+    }
+
+
+    /**
+     * Processa uma saida dado uma entrada
+     * @param input
+     */
+    private static void processOutput(Input input) {
+        // processa saida
+        LOGGER.info("Processando saida...");
+
+        Output output = new OutputJsonStrategy1(input);
+        output.process();
+
+        LOGGER.info("saida - resultados = {}", output.getGroupsOutString());
+
+        // gera resultados na saida padrao
+        System.out.println(output.getGroupsOutString());
     }
 }

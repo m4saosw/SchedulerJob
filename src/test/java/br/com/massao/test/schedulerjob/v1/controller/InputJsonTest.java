@@ -3,8 +3,6 @@ package br.com.massao.test.schedulerjob.v1.controller;
 import br.com.massao.test.schedulerjob.v1.bean.ExecutionWindow;
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.util.ArgumentsReaderFile;
-import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.nio.file.Path;
