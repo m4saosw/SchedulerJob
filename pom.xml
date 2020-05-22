@@ -52,6 +52,14 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- apoio para testes junit com system.out e exit status -->
+        <dependency>
+            <groupId>com.github.stefanbirkner</groupId>
+            <artifactId>system-rules</artifactId>
+            <version>1.19.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
