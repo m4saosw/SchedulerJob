@@ -1,5 +1,7 @@
 package br.com.massao.test.schedulerjob.v1.controller;
 
+import br.com.massao.test.schedulerjob.v1.interfaces.Input;
+import br.com.massao.test.schedulerjob.v1.interfaces.Output;
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.model.output.GroupsOut;
 import br.com.massao.test.schedulerjob.v1.model.output.JobOut;
@@ -12,10 +14,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OutputJson {
+public class OutputJson implements Output {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private InputJson input;
+    private Input input;
     private String groupsOutString;
 
 
@@ -24,17 +26,19 @@ public class OutputJson {
     }
 
 
-    public OutputJson(InputJson input) {
+    public OutputJson(Input input) {
         this();
         this.input = input;
     }
 
 
+    @Override
     public String getGroupsOutString() {
         return groupsOutString;
     }
 
 
+    @Override
     public void process() {
         List<Job> validJobs = new ArrayList<>(this.input.getValidJobs().getJobs()); // Conversao de Set para List
 
