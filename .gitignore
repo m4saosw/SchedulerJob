@@ -29,3 +29,8 @@ SchedulerJob.iml
 target/
 logs/
 .idea/
+
+.classpath
+.factorypath
+.project
+.settings/
