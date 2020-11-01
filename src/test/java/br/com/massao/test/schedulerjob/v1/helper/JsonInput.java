@@ -1,10 +1,32 @@
-package br.com.massao.test.schedulerjob.v1.util;
+package br.com.massao.test.schedulerjob.v1.helper;
 
 /**
  * Conteudo dos arquivos Json
  */
-public class MockJsonInput {
+public class JsonInput {
+
     public static final String FILE_01_MASSA_PROVA = "[\n" +
+            "  {\n" +
+            "    \"ID\": 1,\n" +
+            "    \"Descrição\": \"Importação de arquivos de fundos\",\n" +
+            "    \"Data Máxima de conclusão\": \"2019-11-10 12:00:00\",\n" +
+            "    \"Tempo estimado\": 2\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"ID\": 2,\n" +
+            "    \"Descrição\": \"Importação de dados da Base Legada\",\n" +
+            "    \"Data Máxima de conclusão\": \"2019-11-11 12:00:00\",\n" +
+            "    \"Tempo estimado\": 4\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"ID\": 3,\n" +
+            "    \"Descrição\": \"Importação de dados de integração\",\n" +
+            "    \"Data Máxima de conclusão\": \"2019-11-11 08:00:00\",\n" +
+            "    \"Tempo estimado\": 6\n" +
+            "  }\n" +
+            "]";
+
+    public static final String FILE_01_MASSA_PROVA_ = "[\n" +
             "  {\n" +
             "    \"ID\": 1,\n" +
             "    \"Descrição\": \"Mock job 1\",\n" +
