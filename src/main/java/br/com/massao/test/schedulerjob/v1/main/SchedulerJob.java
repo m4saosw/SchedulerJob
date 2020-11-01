@@ -19,6 +19,12 @@ public class SchedulerJob {
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static void main(String[] args) {
+        SchedulerJob sch = new SchedulerJob();
+        sch.process(args);
+    }
+
+
+    private void process(String[] args) {
         final Instant start = Instant.now();
 
         try {
@@ -41,7 +47,7 @@ public class SchedulerJob {
      * @param args
      * @return
      */
-    private static Input getInput(String[] args) {
+    private Input getInput(String[] args) {
         // processa entrada
         LOGGER.info("Processando entrada...");
 
@@ -59,7 +65,7 @@ public class SchedulerJob {
      * Processa uma saida dado uma entrada
      * @param input
      */
-    private static void processOutput(Input input) {
+    private void processOutput(Input input) {
         // processa saida
         LOGGER.info("Processando saida...");
 

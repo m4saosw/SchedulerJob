@@ -62,7 +62,7 @@ public class ArgumentsReaderFile implements ArgumentsReader {
      * @param fileName
      * @return
      */
-    public String readFromFile(String fileName) {
+    private String readFromFile(String fileName) {
         StringBuilder sb = new StringBuilder();
 
         // try-with-resources para ser auto-closeable  https://mkyong.com/java/java-8-should-we-close-the-stream-after-use/

@@ -1,5 +1,6 @@
 package br.com.massao.test.schedulerjob.v1.util;
 
+import br.com.massao.test.schedulerjob.v1.helper.JsonInput;
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.model.input.Jobs;
 import br.com.massao.test.schedulerjob.v1.model.output.GroupsOut;
@@ -26,15 +27,13 @@ public class JsonParserJacksonJobsTest {
 
     @Test(expected = Exception.class)
     public void recusarJSonVazio() throws JsonProcessingException {
-        String jSon = "";
-        JsonParserJacksonJobs.toClass(jSon);
+        JsonParserJacksonJobs.toClass(JsonInput.FILE_02_VAZIO);
     }
 
 
     @Test(expected = Exception.class)
     public void recusarJSonConteudoInvalido() throws JsonProcessingException {
-        String jSon = "este e um conteudo invalido";
-        JsonParserJacksonJobs.toClass(jSon);
+        JsonParserJacksonJobs.toClass(JsonInput.FILE_03_INVALIDO);
     }
 
 
