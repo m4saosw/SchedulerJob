@@ -1,5 +1,6 @@
 package br.com.massao.test.schedulerjob.v1.util;
 
+import br.com.massao.test.schedulerjob.v1.helper.JsonInput;
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.model.input.Jobs;
 import br.com.massao.test.schedulerjob.v1.model.output.GroupsOut;
@@ -19,50 +20,31 @@ public class JsonParserJacksonJobsTest {
 
     @Test(expected = Exception.class)
     public void recusarJSonNulo() throws JsonProcessingException {
-        String jSon = null;
-        JsonParserJacksonJobs.toClass(jSon);
+        JsonParserJacksonJobs.toClass(null);
     }
 
 
     @Test(expected = Exception.class)
     public void recusarJSonVazio() throws JsonProcessingException {
-        String jSon = "";
-        JsonParserJacksonJobs.toClass(jSon);
+        JsonParserJacksonJobs.toClass(JsonInput.FILE_02_VAZIO);
     }
 
 
     @Test(expected = Exception.class)
     public void recusarJSonConteudoInvalido() throws JsonProcessingException {
-        String jSon = "este e um conteudo invalido";
-        JsonParserJacksonJobs.toClass(jSon);
+        JsonParserJacksonJobs.toClass(JsonInput.FILE_03_INVALIDO);
     }
 
 
     @Test(expected = Exception.class)
     public void recusarJSonConteudoInvalido_TipoDadosInvalidoNoCampo() throws JsonProcessingException {
-        String jSon = "[\n" +
-                "  {\n" +
-                "    \"ID\": 1,\n" +
-                "    \"Descrição\": \"Importação de arquivos de fundos\",\n" +
-                "    \"Data Máxima de conclusão\": \"2019-11-10 12:00:00\",\n" +
-                "    \"Tempo estimado\": Este e um conteudo invalido no campo tempo\n" +
-                "  }\n" +
-                "]";
-        JsonParserJacksonJobs.toClass(jSon);
+        JsonParserJacksonJobs.toClass(JsonInput.FILE_09_VALIDOS_E_INVALIDOS);
     }
 
 
     @Test
     public void jSonValido_ContendoUmJob() throws JsonProcessingException {
-        String jSon = "[\n" +
-                "  {\n" +
-                "    \"ID\": 1,\n" +
-                "    \"Descrição\": \"Importação de arquivos de fundos\",\n" +
-                "    \"Data Máxima de conclusão\": \"2019-11-10 12:00:00\",\n" +
-                "    \"Tempo estimado\": 2\n" +
-                "  }\n" +
-                "]";
-        Jobs jobs = JsonParserJacksonJobs.toClass(jSon);
+        final Jobs jobs = JsonParserJacksonJobs.toClass(JsonInput.FILE_11_UM_JOB_VALIDO);
         Job job = jobs.getJobs().stream().findFirst().get();
 
         assertEquals(1, job.getId());
@@ -73,27 +55,7 @@ public class JsonParserJacksonJobsTest {
 
     @Test
     public void jSonValido_Contendo3Job() throws JsonProcessingException {
-        String jSon = "[\n" +
-                "  {\n" +
-                "    \"ID\": 1,\n" +
-                "    \"Descrição\": \"Importação de arquivos de fundos\",\n" +
-                "    \"Data Máxima de conclusão\": \"2019-11-10 12:00:00\",\n" +
-                "    \"Tempo estimado\": 2\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"ID\": 2,\n" +
-                "    \"Descrição\": \"Importação de dados da Base Legada\",\n" +
-                "    \"Data Máxima de conclusão\": \"2019-11-11 12:00:00\",\n" +
-                "    \"Tempo estimado\": 4\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"ID\": 3,\n" +
-                "    \"Descrição\": \"Importação de dados de integração\",\n" +
-                "    \"Data Máxima de conclusão\": \"2019-11-11 08:00:00\",\n" +
-                "    \"Tempo estimado\": 6\n" +
-                "  }\n" +
-                "]";
-        Jobs jobs = JsonParserJacksonJobs.toClass(jSon);
+        final Jobs jobs = JsonParserJacksonJobs.toClass(JsonInput.FILE_01_MASSA_PROVA);
         List<Job> jobsList = jobs.getJobs().stream().collect(Collectors.toList());
 
         assertEquals(1, jobsList.get(0).getId());
@@ -104,27 +66,7 @@ public class JsonParserJacksonJobsTest {
 
     @Test
     public void jSonValido_Contendo3JobSendo1Duplicado() throws JsonProcessingException {
-        String jSon = "[\n" +
-                "  {\n" +
-                "    \"ID\": 2,\n" +
-                "    \"Descrição\": \"Importação de arquivos de fundos\",\n" +
-                "    \"Data Máxima de conclusão\": \"2019-11-10 12:00:00\",\n" +
-                "    \"Tempo estimado\": 2\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"ID\": 2,\n" +
-                "    \"Descrição\": \"Descartar esse pois id esta duplicado\",\n" +
-                "    \"Data Máxima de conclusão\": \"2019-11-11 12:00:00\",\n" +
-                "    \"Tempo estimado\": 4\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"ID\": 1,\n" +
-                "    \"Descrição\": \"Importação de dados de integração\",\n" +
-                "    \"Data Máxima de conclusão\": \"2019-11-11 08:00:00\",\n" +
-                "    \"Tempo estimado\": 6\n" +
-                "  }\n" +
-                "]";
-        Jobs jobs = JsonParserJacksonJobs.toClass(jSon);
+        final Jobs jobs = JsonParserJacksonJobs.toClass(JsonInput.FILE_04_IDS_DUPLICADOS);
         List<Job> jobsList = jobs.getJobs().stream().collect(Collectors.toList());
 
         assertEquals(2, jobsList.size());
@@ -137,7 +79,7 @@ public class JsonParserJacksonJobsTest {
     // este cenario nao ocorre na pratica
     @Test
     public void conversaoGrupoNuloParaStringEDevolverNulo() {
-        GroupsOut groups = null;
+        final GroupsOut groups = null;
         String jSon = JsonParserJacksonJobs.toJson(groups);
         assertNull(jSon);
     }
@@ -145,7 +87,7 @@ public class JsonParserJacksonJobsTest {
 
     @Test
     public void ConversaoGrupoVazioParaStringEDevolverJSonGrupoVazio() {
-        GroupsOut groups = new GroupsOut(new ArrayList<>());
+        final GroupsOut groups = new GroupsOut(new ArrayList<>());
         String jSon = JsonParserJacksonJobs.toJson(groups);
         assertEquals("[]", jSon);
     }

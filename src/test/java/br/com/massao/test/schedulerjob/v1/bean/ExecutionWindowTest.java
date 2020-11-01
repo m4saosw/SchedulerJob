@@ -1,6 +1,6 @@
 package br.com.massao.test.schedulerjob.v1.bean;
 
-import org.junit.Assert;
+import br.com.massao.test.schedulerjob.v1.helper.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.assertTrue;
 
 public class ExecutionWindowTest {
-    String dataInicio = LocalDateTime.parse("2019-11-10 09:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
-    String dataFim = LocalDateTime.parse("2019-11-11 12:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
+    final static String DATA_INICIO = DateUtils.getDate("2019-11-10 09:00:00");
+    final static String DATA_FIM = DateUtils.getDate("2019-11-11 12:00:00");
     ExecutionWindow window;
 
     @Before
-    public void setUp() throws Exception {
-        window = new ExecutionWindow(dataInicio, dataFim);
+    public void setUp() {
+        window = new ExecutionWindow(DATA_INICIO, DATA_FIM);
     }
 
 
@@ -33,13 +33,13 @@ public class ExecutionWindowTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void recusarDataFimAntesDataInicio() {
-        window = new ExecutionWindow(dataFim, dataInicio);
+        window = new ExecutionWindow(DATA_FIM, DATA_INICIO);
     }
 
 
     @Test
     public void dataAntesDaJanela() {
-        LocalDateTime dataAntes = LocalDateTime.parse("2000-04-15 00:00:00", ExecutionWindow.FORMATTER);
+        LocalDateTime dataAntes = DateUtils.getDateTime("2000-04-15 00:00:00");
 
         assertTrue(window.isBeforeWindow(dataAntes));
     }
@@ -47,7 +47,7 @@ public class ExecutionWindowTest {
 
     @Test
     public void dataIgualInicioJanela() {
-        LocalDateTime dataIgual = LocalDateTime.parse(dataInicio, ExecutionWindow.FORMATTER);
+        LocalDateTime dataIgual = DateUtils.getDateTime(DATA_INICIO);
 
         assertTrue(window.isBeforeWindow(dataIgual));
     }

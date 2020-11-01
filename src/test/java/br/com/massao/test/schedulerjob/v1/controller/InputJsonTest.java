@@ -3,26 +3,60 @@ package br.com.massao.test.schedulerjob.v1.controller;
 import br.com.massao.test.schedulerjob.v1.bean.ExecutionWindow;
 import br.com.massao.test.schedulerjob.v1.model.input.Job;
 import br.com.massao.test.schedulerjob.v1.util.ArgumentsReaderFile;
+import br.com.massao.test.schedulerjob.v1.helper.DateUtils;
+import br.com.massao.test.schedulerjob.v1.helper.JsonInput;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.powermock.api.mockito.PowerMockito.when;
 
+@RunWith(PowerMockRunner.class)
+@PowerMockIgnore({"javax.management.*", "jdk.internal.reflect.*"})
+@PrepareForTest({InputJson.class })
 public class InputJsonTest {
-    String dataInicio = LocalDateTime.parse("2019-11-10 09:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
-    String dataFim    = LocalDateTime.parse("2019-11-11 12:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
+    final static String DATA_INICIO = DateUtils.getDate("2019-11-10 09:00:00");
+    final static String DATA_FIM    = DateUtils.getDate("2019-11-11 12:00:00");
+
+    InputJson input;
+
+    @Mock
+    ArgumentsReaderFile reader;
+
+    @Before
+    public void setUp() {
+        PowerMockito.mockStatic(Files.class);
+        // MOCKS
+        when(reader.getWindow()).thenReturn(new ExecutionWindow(DATA_INICIO, DATA_FIM));
+    }
+
+
+    private void process(String json) throws IOException {
+        // MOCKS
+        when(Files.lines(any(), any())).thenReturn(json.chars().mapToObj(c -> String.valueOf(c)));
+        when(reader.getJson()).thenReturn(json);
+
+        input = new InputJson(reader);
+        input.process();
+    }
 
 
     @Test(expected = IllegalArgumentException.class)
     public void rejeitarProcessarInputArgumentosInvalidosAMenor() {
-        String args[] = new String[] {dataInicio};
+        String args[] = new String[] {DATA_INICIO};
         InputJson input = new InputJson(new ArgumentsReaderFile(args));
 
         input.process();
@@ -31,7 +65,7 @@ public class InputJsonTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void rejeitarProcessarInputArgumentosInvalidosAMaior() {
-        String args[] = new String[] {dataInicio, dataFim, "arquivo", "parametro a mais"};
+        String args[] = new String[] {DATA_INICIO, DATA_FIM, "arquivo", "parametro a mais"};
         InputJson input = new InputJson(new ArgumentsReaderFile(args));
 
         input.process();
@@ -39,14 +73,8 @@ public class InputJsonTest {
 
 
     @Test
-    public void processarInputValido() {
-        Path dir = Paths.get("src", "main", "resources", "massas");
-        String filename = dir + "\\01-massa_prova.json";
-        String args[] = new String[] {dataInicio, dataFim, filename};
-
-        InputJson input = new InputJson(new ArgumentsReaderFile(args));
-
-        input.process();
+    public void processarInputValido() throws Exception {
+        process(JsonInput.FILE_01_MASSA_PROVA);
 
         // deve retornar jobs carregados
         assertNotNull(input.getValidJobs().getJobs());
@@ -65,14 +93,8 @@ public class InputJsonTest {
 
 
     @Test
-    public void processarInputValidoTesteFiltros() {
-        Path dir = Paths.get("src", "main", "resources", "massas");
-        String filename = dir + "\\10-valido_expirado_acimahoras.json";
-        String args[] = new String[] {dataInicio, dataFim, filename};
-
-        InputJson input = new InputJson(new ArgumentsReaderFile(args));
-
-        input.process();
+    public void processarInputValidoTesteFiltros() throws Exception {
+        process(JsonInput.FILE_10_VALIDO_EXPIRADO_ACIMAHORAS);
 
         // deve retornar jobs carregados
         assertNotNull(input.getValidJobs().getJobs());

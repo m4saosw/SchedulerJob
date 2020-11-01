@@ -1,20 +1,16 @@
 package br.com.massao.test.schedulerjob.v1.main;
 
-import br.com.massao.test.schedulerjob.v1.bean.ExecutionWindow;
+import br.com.massao.test.schedulerjob.v1.helper.DateUtils;
+import br.com.massao.test.schedulerjob.v1.helper.FileUtils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-
 public class SchedulerJobTest {
-    String dataInicio = LocalDateTime.parse("2019-11-10 09:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
-    String dataFim    = LocalDateTime.parse("2019-11-11 12:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
+    final static String DATA_INICIO = DateUtils.getDate("2019-11-10 09:00:00");
+    final static String DATA_FIM = DateUtils.getDate("2019-11-11 12:00:00");
 
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
@@ -33,9 +29,7 @@ public class SchedulerJobTest {
      */
     @Test
     public void rejeitarProcessarDadoUmInputInvalido_JanelaInvalida() {
-        Path dir = Paths.get("src", "main", "resources", "massas");
-        String filename = dir + "\\01-massa_prova.json";
-        String args[] = new String[] {dataFim, dataInicio, filename};
+        String args[] = new String[] {DATA_FIM, DATA_INICIO, "arquivo"};
 
         exit.expectSystemExitWithStatus(1);
         SchedulerJob.main(args);
@@ -47,9 +41,7 @@ public class SchedulerJobTest {
      */
     @Test
     public void processarEntradaValida_massa01() {
-        Path dir = Paths.get("src", "main", "resources", "massas");
-        String filename = dir + "\\01-massa_prova.json";
-        String args[] = new String[] {dataInicio, dataFim, filename};
+        String args[] = new String[] {DATA_INICIO, DATA_FIM, FileUtils.getFileNamePath("01-massa_prova.json")};
 
         SchedulerJob.main(args);
 

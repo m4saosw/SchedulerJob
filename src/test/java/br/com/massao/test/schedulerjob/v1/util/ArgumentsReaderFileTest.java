@@ -1,22 +1,21 @@
 package br.com.massao.test.schedulerjob.v1.util;
 
-import br.com.massao.test.schedulerjob.v1.bean.ExecutionWindow;
+import br.com.massao.test.schedulerjob.v1.helper.DateUtils;
+import br.com.massao.test.schedulerjob.v1.helper.FileUtils;
+import br.com.massao.test.schedulerjob.v1.helper.JsonInput;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-
 public class ArgumentsReaderFileTest {
+
     ArgumentsReaderFile reader = null;
-    String dataInicio = LocalDateTime.parse("2019-11-10 09:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
-    String dataFim = LocalDateTime.parse("2019-11-11 12:00:00", ExecutionWindow.FORMATTER).format(ExecutionWindow.FORMATTER);
+    final static String DATA_INICIO = DateUtils.getDate("2019-11-10 09:00:00");
+    final static String DATA_FIM = DateUtils.getDate("2019-11-11 12:00:00");
+
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
     }
 
@@ -44,13 +43,13 @@ public class ArgumentsReaderFileTest {
 
     @Test
     public void lerConteudoDoArquivo() {
-        Path dir = Paths.get("src", "main", "resources", "massas");
-        String filename = dir + "\\01-massa_prova.json";
-        String args[] = new String[] {dataInicio, dataFim, filename};
+        String filename = FileUtils.getFileNamePath("01-massa_prova.json");
+        String args[] = new String[] {DATA_INICIO, DATA_FIM, filename};
+
+        String jsonString = JsonInput.FILE_01_MASSA_PROVA;
 
         reader = new ArgumentsReaderFile(args);
-        String json = reader.readFromFile(filename);
 
-        Assert.assertTrue(!json.isEmpty());
+        Assert.assertEquals(jsonString + "\n", reader.getJson());
     }
 }
