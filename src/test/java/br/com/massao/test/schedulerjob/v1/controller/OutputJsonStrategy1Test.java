@@ -63,9 +63,9 @@ public class OutputJsonStrategy1Test {
     public void processarOutputDadoUmInputValido_massa01_exemploMassa() throws Exception {
         //new int id, String description, LocalDateTime deadline, float estimatedTime
         Jobs jobs = new Jobs(new ArrayList<>());
-        jobs.getJobs().add(new Job(1, "Mock job 1", LocalDateTime.parse("2019-11-10 12:00:00", ExecutionWindow.FORMATTER), 2));
-        jobs.getJobs().add(new Job(2, "Mock job 2", LocalDateTime.parse("2019-11-11 12:00:00", ExecutionWindow.FORMATTER), 4));
-        jobs.getJobs().add(new Job(3, "Mock job 3", LocalDateTime.parse("2019-11-11 08:00:00", ExecutionWindow.FORMATTER), 6));
+        jobs.getJobs().add(new Job(1, "Mock job 1", DateUtils.getDateTime("2019-11-10 12:00:00"), 2));
+        jobs.getJobs().add(new Job(2, "Mock job 2", DateUtils.getDateTime("2019-11-11 12:00:00"), 4));
+        jobs.getJobs().add(new Job(3, "Mock job 3", DateUtils.getDateTime("2019-11-11 08:00:00"), 6));
 
         jobs.getJobs().stream().forEach(job -> job.setAvailable(true));
 

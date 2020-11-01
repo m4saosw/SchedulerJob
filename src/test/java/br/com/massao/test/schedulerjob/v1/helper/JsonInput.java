@@ -26,27 +26,6 @@ public class JsonInput {
             "  }\n" +
             "]";
 
-    public static final String FILE_01_MASSA_PROVA_ = "[\n" +
-            "  {\n" +
-            "    \"ID\": 1,\n" +
-            "    \"Descrição\": \"Mock job 1\",\n" +
-            "    \"Data Máxima de conclusão\": \"2019-11-10 12:00:00\",\n" +
-            "    \"Tempo estimado\": 2\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"ID\": 2,\n" +
-            "    \"Descrição\": \"Mock job 2\",\n" +
-            "    \"Data Máxima de conclusão\": \"2019-11-11 12:00:00\",\n" +
-            "    \"Tempo estimado\": 4\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"ID\": 3,\n" +
-            "    \"Descrição\": \"Mock job 3\",\n" +
-            "    \"Data Máxima de conclusão\": \"2019-11-11 08:00:00\",\n" +
-            "    \"Tempo estimado\": 6\n" +
-            "  }\n" +
-            "]";
-
     public static final String FILE_02_VAZIO = "";
 
     public static final String FILE_03_INVALIDO = "conteudo invalido";
@@ -263,4 +242,12 @@ public class JsonInput {
             "  }  \n" +
             "]";
 
+    public static final String FILE_11_UM_JOB_VALIDO = "[\n" +
+            "  {\n" +
+            "    \"ID\": 1,\n" +
+            "    \"Descrição\": \"Importação de arquivos de fundos\",\n" +
+            "    \"Data Máxima de conclusão\": \"2019-11-10 12:00:00\",\n" +
+            "    \"Tempo estimado\": 2\n" +
+            "  }\n" +
+            "]";
 }
