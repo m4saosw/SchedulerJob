@@ -7,6 +7,6 @@ public class FileUtils {
     public static String getFileNamePath(String fileName) {
         Path dir = Paths.get("src", "main", "resources", "massas");
 
-        return dir + "\\" + fileName;
+        return dir + "//" + fileName;
     }
 }
