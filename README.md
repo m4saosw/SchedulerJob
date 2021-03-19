@@ -1,6 +1,9 @@
 # Scheduler Job
 [![Build](https://github.com/m4saosw/SchedulerJob/actions/workflows/build.yml/badge.svg)](https://github.com/m4saosw/SchedulerJob/actions/workflows/build.yml)
-
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=m4saosw_SchedulerJob&metric=coverage)](https://sonarcloud.io/dashboard?id=m4saosw_SchedulerJob)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=m4saosw_SchedulerJob&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=m4saosw_SchedulerJob)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=m4saosw_SchedulerJob&metric=bugs)](https://sonarcloud.io/dashboard?id=m4saosw_SchedulerJob)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=m4saosw_SchedulerJob&metric=code_smells)](https://sonarcloud.io/dashboard?id=m4saosw_SchedulerJob)
 
 Simulação de agendamento de jobs dada uma janela horária.
 
