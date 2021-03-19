@@ -17,6 +17,11 @@
         <log4j.version>2.13.3</log4j.version>
         <junit.version>4.13.1</junit.version>
         <maven-test-plugin.version>2.22.0</maven-test-plugin.version>
+
+        <!-- sonar -->
+        <sonar.projectKey>m4saosw_SchedulerJob</sonar.projectKey>
+        <sonar.organization>m4saosw</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
 
