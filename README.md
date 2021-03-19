@@ -1,4 +1,6 @@
 # Scheduler Job
+[![Build](https://github.com/m4saosw/SchedulerJob/actions/workflows/build.yml/badge.svg)](https://github.com/m4saosw/SchedulerJob/actions/workflows/build.yml)
+
 
 Simulação de agendamento de jobs dada uma janela horária.
 
