@@ -14,7 +14,7 @@
 
         <java.version>1.8</java.version>
         <jackson.version>2.11.0</jackson.version>
-        <log4j.version>2.13.3</log4j.version>
+        <log4j.version>2.16.0</log4j.version>
         <junit.version>4.13.1</junit.version>
         <maven-test-plugin.version>2.22.0</maven-test-plugin.version>
 
